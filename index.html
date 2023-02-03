@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    /* Slideshow container */
+    .slideshow-container {
+      max-width: 1000px;
+      position: relative;
+      margin: auto;
+    }
+
+    /* Slides */
+    .mySlides {
+      display: none;
+    }
+
+    /* Next & previous buttons */
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      width: auto;
+      margin-top: -22px;
+      padding: 16px;
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      transition: 0.6s ease;
+      border-radius: 0 3px 3px 0;
+    }
+
+    /* Position the "next button" to the right */
+    .next {
+      right: 0;
+      border-radius: 3px 0 0 3px;
+    }
+
+    /* On hover, add a black background color with a little bit see-through */
+    .prev:hover, .next:hover {
+      background-color: rgba(0,0,0,0.8);
+    }
+
+    /* Caption text */
+    .text {
+      color: #f2f2f2;
+      font-size: 15px;
+      padding: 8px 12px;
+      position: absolute;
+      bottom: 8px;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Number text (1/3 etc) */
+    .numbertext {
+      color: #f2f2f2;
+      font-size: 12px;
+      padding: 8px 12px;
+      position: absolute;
+      top: 0;
+    }
+
+    /* The dots/bullets/indicators */
+    .dot {
+      cursor: pointer;
+      height: 15px;
+      width: 15px;
+      margin: 0 2px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.6s ease;
+    }
+
+    .active, .dot:hover {
+      background-color: #717171;
+    }
+
+    /* Fading animation */
+    .fade {
+      -webkit-animation-name: fade;
+      -webkit-animation-duration: 1.5s;
+      animation-name: fade;
+      animation-duration: 1.5s;
+    }
+
+    @-webkit-keyframes fade {
+      from {opacity: .4} 
+      to {opacity: 1}
+    }
+
+    @keyframes fade {
+      from {opacity: .4} 
+      to {opacity: 1}
+    }
+  </style>
+</head>
+<body>
+  <!-- Drop-down menu for selecting painter -->
+    <select id="painter-select" onchange="changePainter(this.value)">
+    <option value="picasso">Pablo Picasso</option>
+    <option value="monet">Claude Monet</option>
+    <option value="vanGogh">Vincent van Gogh</option>
+  </select>
+
+  <!-- Slideshow container -->
+  <div class="slideshow-container">
+
+    <!-- Slides for Pablo Picasso -->
+    <div class="mySlides picasso">
+      <div class="numbertext">1 / 3</div>
+      <img src="picasso_painting1.jpg" style="width:100%">
+      <div class="text">The Old Guitarist (1903-1904)</div>
+    </div>
+
+    <div class="mySlides picasso">
+      <div class="numbertext">2 / 3</div>
+      <img src="picasso_painting2.jpg" style="width:100%">
+      <div class="text">Les Demoiselles d'Avignon (1907)</div>
+    </div>
+
+    <div class="mySlides picasso">
+      <div class="numbertext">3 / 3</div>
+      <img src="picasso_painting3.jpg" style="width:100%">
+      <div class="text">Guernica (1937)</div>
+    </div>
+
+    <!-- Slides for Claude Monet -->
+    <div class="mySlides monet">
+      <div class="numbertext">1 / 3</div>
+      <img src="monet_painting1.jpg" style="width:100%">
+      <div class="text">Water Lilies (1919)</div>
+    </div>
+
+    <div class="mySlides monet">
+      <div class="numbertext">2 / 3</div>
+      <img src="monet_painting2.jpg" style="width:100%">
+      <div class="text">Impression, Sunrise (1872)</div>
+    </div>
+
+    <div class="mySlides monet">
+      <div class="numbertext">3 / 3</div>
+      <img src="monet_painting3.jpg" style="width:100%">
+      <div class="text">The Rouen Cathedral (1894)</div>
+    </div>
+
+    <!-- Slides for Vincent van Gogh -->
+    <div class="mySlides vanGogh">
+      <div class="numbertext">1 / 3</div>
+      <img src="vanGogh_painting1.jpg" style="width:100%">
+      <div class="text">The Starry Night (1889)</div>
+    </div>
+
+    <div class="mySlides vanGogh">
+      <div class="numbertext">2 / 3</div>
+      <img src="vanGogh_painting2.jpg" style="width:100%">
+      <div class="text">Sunflowers (1888)</div>
+    </div>
+
+    <div class="mySlides vanGogh">
+      <div class="numbertext">3 / 3</div>
+      <img src="vanGogh_painting3.jpg" style="width:100%">
+      
+      <div class="text">The Potato Eaters (1885)</div>
+    </div>
+
+  <div>
+  <!-- Next/previous controls -->
+  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+</div>
+
+<script>
+  // Select first slide for all painters
+  var slideIndex = {
+    picasso: 1,
+    monet: 1,
+    vanGogh: 1
+  };
+
+  function changePainter(painter) {
+    // Hide all slides
+    var slides = document.getElementsByClassName("mySlides");
+    for (var i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+
+    // Show slides for selected painter
+    var selectedSlides = document.getElementsByClassName(painter);
+    for (var i = 0; i < selectedSlides.length; i++) {
+      selectedSlides[i].style.display = "block";
+    }
+
+    // Reset slide index for selected painter
+    slideIndex[painter] = 1;
+    showSlides(slideIndex[painter], painter);
+  }
+
+  function plusSlides(n, painter) {
+    // Determine painter if not provided
+    if (!painter) {
+      var select = document.getElementById("painter-select");
+      painter = select.options[select.selectedIndex].value;
+    }
+
+    showSlides(slideIndex[painter] += n, painter);
+  }
+
+  function currentSlide(n, painter) {
+    // Determine painter if not provided
+    if (!painter) {
+      var select = document.getElementById("painter-select");
+      painter = select.options[select.selectedIndex].value;
+    }
+
+    showSlides(slideIndex[painter] = n, painter);
+  }
+
+  function showSlides(n, painter) {
+    var i;
+    var slides = document.getElementsByClassName(painter);
+    var dots = document.getElementsByClassName("dot");
+    if (n > slides.length) {
+      slideIndex[painter] = 1;
+    }
+    if (n < 1) {
+      slideIndex[painter] = slides.length;
+    }
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex[painter] - 1].style.display = "block";
+  }
+
+  // Show first slide for selected painter
+  changePainter(document.getElementById("painter-select").value);
+</script>
+
+</body>
+</html>
